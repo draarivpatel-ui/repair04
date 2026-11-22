@@ -20,6 +20,7 @@ import type {
   ExtractedRepairRegion,
   ExtractRepairRegionOptions,
   RepairRegionRouteMapping,
+  RepairRoute,
   RepairRoutePoint,
   RepairRoutePosition,
 } from "./repairRegionTypes"
@@ -399,7 +400,7 @@ export const extractRepairRegion = ({
       mutableBounds,
       junctionsByRoute[sourceRouteIndex]!,
     )) {
-      const localRoute: HighDensityRoute = {
+      const localRoute: RepairRoute = {
         ...structuredClone(
           Object.fromEntries(
             Object.entries(route).filter(

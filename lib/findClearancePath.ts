@@ -12,7 +12,7 @@ import { ClearancePathHeap } from "./ClearancePathHeap"
 import { normalizeRepairTrace } from "./normalizeRepairTrace"
 import { getViaPadClearance } from "./getViaPadClearance"
 import { getConservativeRectBarrierBounds } from "./getConservativeRectBarrierBounds"
-import type { Bounds, RepairRoutePoint } from "./repairRegionTypes"
+import type { Bounds, RepairRoute, RepairRoutePoint } from "./repairRegionTypes"
 import { REGION_EPSILON } from "./repairRegionGeometry"
 
 type Point = RepairRoutePoint
@@ -47,7 +47,7 @@ export type ClearancePathInput = Parameters<typeof findClearancePath>[0]
 /** Clearance-aware routing between fixed anchors, using only cropped context. */
 export function findClearancePath(input: {
   srj: SimpleRouteJson & { allowBlindAndBuriedVias?: boolean }
-  routes: HighDensityRoute[]
+  routes: RepairRoute[]
   routeIndex: number
   start: Point
   end: Point
