@@ -187,7 +187,16 @@ export class FindClearancePathSolver extends BaseSolver {
       throw new Error(
         "repair04: heuristic weight must be finite and at least one",
       )
+    const allowedZLayers = input.routes[input.routeIndex]?.allowedZLayers
     const extraCost = (a: Point, b: Point): number => {
+      if (
+        allowedZLayers &&
+        a.z === b.z &&
+        (a.x !== b.x || a.y !== b.y) &&
+        !allowedZLayers.includes(a.z)
+      ) {
+        return Infinity
+      }
       const value = input.getAdditionalEdgeCost?.(a, b) ?? 0
       if (Number.isNaN(value) || value < 0)
         throw new Error("repair04: additional edge costs must be nonnegative")

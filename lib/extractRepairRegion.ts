@@ -408,6 +408,7 @@ export const extractRepairRegion = ({
           ),
         ),
         connectionName: route.connectionName,
+        allowedZLayers: route.allowedZLayers,
         traceThickness: route.traceThickness,
         viaDiameter: route.viaDiameter,
         route: fragment.points,
