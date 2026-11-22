@@ -26,6 +26,7 @@ type Barrier = {
   radius: number
   viaOnly?: boolean
   pad?: boolean
+  isCopperPour?: boolean
   isNonPlatedHole?: boolean
   a: Point
   b: Point
@@ -197,6 +198,7 @@ export function findClearancePath(input: {
     viaOnly = false,
     pad = false,
     isNonPlatedHole = false,
+    isCopperPour = false,
   ): void => {
     const extent = rect ? Math.hypot(rect.width, rect.height) / 2 : radius
     const rectCos = rect ? Math.cos(rect.rotation) : 1
@@ -226,6 +228,7 @@ export function findClearancePath(input: {
       viaOnly,
       pad,
       isNonPlatedHole,
+      isCopperPour,
       rectCos,
       rectSin,
       rectBounds: rect
@@ -272,6 +275,7 @@ export function findClearancePath(input: {
         viaOnly,
         circularObstacle,
         obstacle.isNonPlatedHole,
+        obstacle.isCopperPour,
       )
     }
   }
@@ -386,7 +390,7 @@ export function findClearancePath(input: {
         const bucket = column.get(y)
         if (!bucket) continue
         for (const barrier of bucket) {
-          if (barrier.viaOnly && !isVia) continue
+          if (isVia ? barrier.isCopperPour : barrier.viaOnly) continue
           if (barrier.visitedQuery === currentQuery) continue
           barrier.visitedQuery = currentQuery
           if (barrier.maxZ < minZ || barrier.minZ > maxZ) continue
