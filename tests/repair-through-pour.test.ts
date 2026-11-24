@@ -1,11 +1,13 @@
 import { expect, test } from "bun:test"
+import "bun-match-svg"
+import { drawThroughPourCrossSection } from "./fixtures/drawThroughPourCrossSection"
 import { FindClearancePathSolver } from "../lib/FindClearancePathSolver"
 import { findClearancePath } from "../lib/findClearancePath"
 import { getFixedObstacleViolations } from "../lib/getFixedObstacleViolations"
 import { getNewViaPadViolations } from "../lib/getNewViaPadViolations"
 import { makeBudgetInput, makeBudgetRoute } from "./fixtures/workBudgetFixture"
 
-test("a through-via can cross a poured plane while wires respect the reserved layer", () => {
+test("a through-via can cross a poured plane while wires respect the reserved layer", async () => {
   const route = makeBudgetRoute("signal", [
     [-1, 0],
     [0, 0],
@@ -40,14 +42,24 @@ test("a through-via can cross a poured plane while wires respect the reserved la
     maxNodes: 1000,
     existingPath: route.route,
   }
-  for (const isCopperPour of [true, false]) {
+  const panels: string[] = []
+  for (const isCopperPour of [false, true]) {
     obstacle.isCopperPour = isCopperPour
     const solver = new FindClearancePathSolver(search)
     solver.solve()
     expect(Boolean(solver.getOutput())).toBe(isCopperPour)
-    expect(Boolean(findClearancePath(search))).toBe(isCopperPour)
-    expect(getFixedObstacleViolations(search)).toHaveLength(
-      isCopperPour ? 0 : 1,
+    const path = findClearancePath(search)
+    const violations = getFixedObstacleViolations(search)
+    expect(Boolean(path)).toBe(isCopperPour)
+    expect(violations).toHaveLength(isCopperPour ? 0 : 1)
+    panels.push(
+      drawThroughPourCrossSection({
+        input: route,
+        path,
+        violations,
+        isCopperPour,
+        viaClearance: search.viaClearance,
+      }),
     )
     expect(
       getNewViaPadViolations({
@@ -57,6 +69,13 @@ test("a through-via can cross a poured plane while wires respect the reserved la
       }),
     ).toHaveLength(isCopperPour ? 0 : 1)
   }
+
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="840" height="264" viewBox="0 0 840 264">
+    <rect width="840" height="264" fill="white"/>
+    ${panels[0]}<path d="M420 16V248" stroke="#c9d3d7"/>
+    <g transform="translate(420 0)">${panels[1]}</g>
+  </svg>`
+  await expect(svg).toMatchSvgSnapshot(import.meta.path)
 
   obstacle.isCopperPour = true
   const planeWire = makeBudgetRoute("signal", [

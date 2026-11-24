@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="264" viewBox="0 0 840 264">
+    <rect width="840" height="264" fill="white"/>
+    <g font-family="sans-serif">
+    <text x="18" y="29" font-size="20" font-weight="bold" fill="#172839">Solid copper pad</text>
+    <text x="18" y="54" font-size="15" fill="#a33236">No path · 1 via clearance violation</text>
+    <text x="18" y="101" font-size="14" fill="#52636f">Top</text><path d="M81 96H399" stroke="#c9d3d7" stroke-dasharray="3 4"/><text x="18" y="138" font-size="14" fill="#52636f">Inner 1</text><path d="M81 133H399" stroke="#c9d3d7" stroke-dasharray="3 4"/><text x="18" y="175" font-size="14" fill="#52636f">Inner 2</text><path d="M81 170H399" stroke="#c9d3d7" stroke-dasharray="3 4"/><text x="18" y="212" font-size="14" fill="#52636f">Bottom</text><path d="M81 207H399" stroke="#c9d3d7" stroke-dasharray="3 4"/>
+    <path d="M81 133H399" stroke="#257662" stroke-width="11"/>
+    
+    <polyline points="140,96 240,96 240,207 340,207" fill="none" stroke="#74828e" stroke-width="5" stroke-dasharray="6 5"/>
+    <g transform="translate(240 133)" stroke="#b9343a" fill="white"><circle r="12" stroke-width="2"/><path d="M-5 -5L5 5M5 -5L-5 5" stroke-width="2"/></g>
+    <text x="81" y="244" font-size="14" fill="#425663">Dashed line = attempted signal route</text>
+  </g><path d="M420 16V248" stroke="#c9d3d7"/>
+    <g transform="translate(420 0)"><g font-family="sans-serif">
+    <text x="18" y="29" font-size="20" font-weight="bold" fill="#172839">Ground pour</text>
+    <text x="18" y="54" font-size="15" fill="#09624f">Path found · 0 via clearance violations</text>
+    <text x="18" y="101" font-size="14" fill="#52636f">Top</text><path d="M81 96H399" stroke="#c9d3d7" stroke-dasharray="3 4"/><text x="18" y="138" font-size="14" fill="#52636f">Inner 1</text><path d="M81 133H399" stroke="#c9d3d7" stroke-dasharray="3 4"/><text x="18" y="175" font-size="14" fill="#52636f">Inner 2</text><path d="M81 170H399" stroke="#c9d3d7" stroke-dasharray="3 4"/><text x="18" y="212" font-size="14" fill="#52636f">Bottom</text><path d="M81 207H399" stroke="#c9d3d7" stroke-dasharray="3 4"/>
+    <path d="M81 133H399" stroke="#257662" stroke-width="11"/>
+    <rect x="215" y="126" width="50" height="14" fill="white"/>
+    <polyline points="140,96 240,96 240,207 340,207" fill="none" stroke="#a15715" stroke-width="5" />
+    
+    <text x="81" y="244" font-size="14" fill="#425663">Gap in the pour = clearance around the via</text>
+  </g></g>
+  </svg>
