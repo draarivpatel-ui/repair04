@@ -211,7 +211,12 @@ const createEvaluator = ({
         obstacle.type === "rect" &&
         obstacle.layers.length > 1 &&
         Math.abs(obstacle.width - obstacle.height) < 0.001
-      if (recognizedPad && !rotated && !rectangularPlatedHole) {
+      if (
+        recognizedPad &&
+        !obstacle.isCopperPour &&
+        !rotated &&
+        !rectangularPlatedHole
+      ) {
         preparedByIndex.set(obstacleIndex, null)
         continue
       }
@@ -342,6 +347,7 @@ const createEvaluator = ({
         const end = route.route[pointIndex]! as RepairRoutePoint
         if (start.toNextSegmentType === "through_obstacle") continue
         if (start.z !== end.z) {
+          if (obstacle.isCopperPour) continue
           const span = getRepairCopperLayerSpan(srj, start, end)
           if (
             !Array.from(zLayers).some((z) => z >= span.minZ && z <= span.maxZ)

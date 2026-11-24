@@ -457,7 +457,9 @@ export class RelaxTraceClearanceSolver extends BaseSolver {
         const segment = segments[segmentIndex]!
         if (segment.a.locked && segment.b.locked) continue
         if (
-          (!segment.via && obstacleNets.has(segment.net)) ||
+          (segment.via
+            ? obstacle.isCopperPour
+            : obstacleNets.has(segment.net)) ||
           !zs.some((z) => z >= segment.minZ && z <= segment.maxZ)
         )
           continue

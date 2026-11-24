@@ -322,7 +322,7 @@ export function relaxTraceClearance(
     }
     for (const segment of segments) {
       if (
-        (!segment.via && obstacleNets.has(segment.net)) ||
+        (segment.via ? obstacle.isCopperPour : obstacleNets.has(segment.net)) ||
         !zs.some((z) => z >= segment.minZ && z <= segment.maxZ)
       )
         continue
